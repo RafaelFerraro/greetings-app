@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greetings-app
+  labels:
+    name: greetings-app
+    project: greetings-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: greetings-app-pod
+      app: greetings-app
+  template:
+    metadata:
+      name: greetings-app-pod
+      labels:
+        name: greetings-app-pod
+        app: greetings-app
+    spec:
+      containers:
+        - name: greetings-app-container
+          image: ferrarorafael/greetingsapp
+          ports:
+            - containerPort: 4567
