@@ -6,11 +6,10 @@ metadata:
     name: greetings-app-service
     project: greetings-app
 spec:
-  type: NodePort
   ports:
     - port: 4567
       targetPort: 4567
-      nodePort: 30010
+      protocol: TCP
   selector:
     name: greetings-app-pod
     app: greetings-app

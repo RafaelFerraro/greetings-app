@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp-ingress
+spec:
+  rules:
+    - host: webapp.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/greetings"
+            backend:
+              service:
+                name: greetings-app-service
+                port:
+                  number: 4567
