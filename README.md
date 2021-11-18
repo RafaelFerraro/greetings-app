@@ -27,3 +27,14 @@ Now, we should open the /etc/hosts and add the mapping there:
 ```
 
 Finally, we should be able to hit webapp.com on our browser and see the app's response.
+
+## Local development and tests
+
+Requirements:
+- docker
+- docker-compose
+
+```bash
+docker-compose build
+docker-compose up
+```
