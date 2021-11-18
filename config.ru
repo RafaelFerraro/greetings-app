@@ -1,7 +1,4 @@
 require 'sinatra'
-
-get '/greetings' do
-  'Hello!'
-end
+require_relative 'app.rb'
 
 run Sinatra::Application
