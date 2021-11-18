@@ -5,10 +5,9 @@ get '/greetings' do
 end
 
 post '/greetings' do
-  country = params.to_h[:country]
-  greeting = params.to_h['greeting']
-
-  puts params.to_h
+  data = JSON.parse(request.body.read)
+  country = data["country"]
+  greeting = data["greeting"]
 
   "Greeting #{greeting} created for country #{country}"
 end
