@@ -10,7 +10,7 @@ Build the k8s resources:
 ```bash
 kubectl create -f deploy/webapp-deployment.yaml && \
 kubectl create -f deploy/webapp-internalService.yaml && \ 
-kubectl create -f deploy/webapp-internalService.yaml
+kubectl create -f deploy/webapp-ingress.yaml
 ```
 
 Lastly, we have to map the ingress IP address to our defined host locally. To do so, we have to get the ingress IP address:
