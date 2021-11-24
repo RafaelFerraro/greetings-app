@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: postgres
+      app: greetings-app
+  template:
+    metadata:
+      labels:
+        app: greetings-app
+        name: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: greetings
+            - name: POSTGRES_USER
+              value: database_user
+            - name: POSTGRES_PASSWORD
+              value: database_password
+            - name: POSTGRES_HOST_AUTH_METHOD
+              value: trust
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  selector:
+    app: greetings-app
+    name: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432

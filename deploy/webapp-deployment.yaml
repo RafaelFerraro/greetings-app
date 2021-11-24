@@ -23,3 +23,6 @@ spec:
           image: ferrarorafael/greetingsapp
           ports:
             - containerPort: 4567
+          env:
+            - name: DATABASE_URL
+              value: 'postgres://database_user:database_password@postgres-service/greetings'
