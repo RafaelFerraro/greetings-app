@@ -3,20 +3,25 @@ require 'sequel'
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
 
+class Greeting < Sequel::Model(:greetings)
+  plugin :uuid, :field => :id
+  plugin :timestamps
+end
+
 get '/greetings' do
-  greetings = DB[:greetings]
+  return Greeting.all.map(&:values).to_json unless params[:country]
 
-  return greetings.all.to_json unless params[:country]
-
-  greeting = greetings.where(:country => params[:country]).first
-  greeting ? greeting.to_json : "There isn't any greeting for this country"
+  greetings = Greeting.where(:country => params[:country])
+  greetings.any? ? greetings.map(&:values).to_json : "There isn't any greeting for this country"
 end
 
 post '/greetings' do
   data = JSON.parse(request.body.read)
 
-  greetings = DB[:greetings]
-  greetings.insert(:country => data["country"], :greeting => data["greeting"])
+  created_greeting = Greeting.create(
+    :country => data["country"],
+    :greeting => data["greeting"]
+  )
 
-  "Greeting #{data["greeting"]} created for country #{data["country"]}"
+  "Greeting created: #{created_greeting.values}"
 end
