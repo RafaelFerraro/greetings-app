@@ -33,7 +33,12 @@ Now, we should open the /etc/hosts and add the mapping there:
 192.168.49.2 webapp.com/greetings
 ```
 
-Finally, we should be able to hit webapp.com on our browser and see the app's response.
+Finally, we will be able to hit webapp.com on our browser and see the app's response.
+
+Don't forget to add a new greeting:
+```
+curl -d '{"country":"Spain", "greeting": "Hola"}' webapp.com/greetings
+```
 
 ## Local development and tests
 
