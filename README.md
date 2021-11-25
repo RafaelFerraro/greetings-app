@@ -8,6 +8,7 @@ minikube start --driver=docker
 
 Build the k8s resources:
 ```bash
+kubectl create -f deploy/postgres.yaml && \
 kubectl create -f deploy/webapp-deployment.yaml && \
 kubectl create -f deploy/webapp-internalService.yaml && \ 
 kubectl create -f deploy/webapp-ingress.yaml
@@ -20,10 +21,16 @@ NAME             CLASS   HOSTS        ADDRESS        PORTS   AGE
 webapp-ingress   nginx   webapp.com   192.168.49.2   80      16m
 ```
 
+For now, as we don't have our migrations running automaticaly, we have to do that manualy. We are able to do so by accessing the application container and run the migration rake.
+```bash
+$ kubectl exec -i -t pod-name -c greetings-app-container -- bash -il
+root@pod-name:/usr/src/app# rake migrate
+```
+
 Now, we should open the /etc/hosts and add the mapping there:
 ```
 127.0.0.1	localhost
-192.168.49.2 webapp.com
+192.168.49.2 webapp.com/greetings
 ```
 
 Finally, we should be able to hit webapp.com on our browser and see the app's response.
