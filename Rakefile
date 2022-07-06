@@ -1,5 +1,9 @@
 require 'sequel'
 
+task :greeting do
+  p "Greetings!"
+end
+
 task :migrate do
   Sequel.extension :migration
 
