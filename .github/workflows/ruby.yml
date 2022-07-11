@@ -40,5 +40,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "Build the docker image"
-        working-directory: app/
         run: docker build . --file Dockerfile --tag greetings-app:$(date +%s)
