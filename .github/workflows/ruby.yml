@@ -35,3 +35,10 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
+  Build-Image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Build the docker image"
+        working-directory: app/
+        run: docker build . --file Dockerfile --tag greetings-app:$(date +%s)
